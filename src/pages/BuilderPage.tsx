@@ -14,7 +14,7 @@ export function BuilderPage() {
   return (
     <div className="min-h-screen pb-8">
       <Navbar />
-      <main className="mx-auto max-w-[1600px] px-3 pb-6 pt-36 sm:px-4 sm:pt-40 lg:pt-24 print:block print:p-0 print:pt-0">
+      <main className="mx-auto max-w-[1600px] px-3 pb-6 pt-28 sm:px-4 sm:pt-32 lg:pt-24 print:block print:p-0 print:pt-0">
         <div className="no-print mb-4 grid grid-cols-2 gap-2 lg:hidden">
           <Button
             type="button"

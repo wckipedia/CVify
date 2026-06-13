@@ -1,6 +1,7 @@
 import { useResumeStore } from '../../store/resumeStore';
 import { ResumePreviewSkeleton } from '../ui/resume-preview-skeleton';
-import { getTemplateComponent, getTemplateName } from '../templates/registry';
+import { getTemplateComponent } from '../templates/registry';
+import { PreviewLayoutControls } from './PreviewLayoutControls';
 
 export function PreviewPanel() {
   const data = useResumeStore((s) => s.data);
@@ -9,13 +10,11 @@ export function PreviewPanel() {
 
   return (
     <div className="p-4 sm:p-6 print:p-0">
-      <div className="no-print mb-4 flex flex-wrap items-center justify-between gap-2">
+      <div className="no-print mb-4 flex flex-col items-center gap-4 text-center">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500">
           Live Preview
         </h2>
-        <span className="text-xs text-neutral-400">
-          {getTemplateName(data.layout.template)}
-        </span>
+        <PreviewLayoutControls />
       </div>
       <div className="no-print overflow-x-auto pb-2 lg:overflow-x-visible">
         <div className="relative mx-auto w-max min-w-full lg:w-auto">

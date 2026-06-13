@@ -12,33 +12,17 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { useResumeStore } from '../store/resumeStore';
 import {
   exportPdf,
   exportResumeJson,
   importResumeJson,
 } from '../utils/importExport';
-import {
-  isTemplateId,
-  TEMPLATES,
-  templateUsesAccentColor,
-} from './templates/registry';
 import { GlassPanel } from './GlassPanel';
 
 export function Navbar() {
   const data = useResumeStore((s) => s.data);
-  const layout = useResumeStore((s) => s.data.layout);
   const importError = useResumeStore((s) => s.importError);
-  const setLayout = useResumeStore((s) => s.setLayout);
   const loadData = useResumeStore((s) => s.loadData);
   const resetData = useResumeStore((s) => s.resetData);
   const setImportError = useResumeStore((s) => s.setImportError);
@@ -78,102 +62,18 @@ export function Navbar() {
         <div className="mx-auto max-w-[1600px] px-3 sm:px-4">
           <GlassPanel
             as="nav"
-            className="flex w-full flex-col gap-3 px-4 py-3 sm:px-5 lg:flex-row lg:items-center lg:gap-4"
+            className="flex w-full flex-col gap-3 px-4 py-3 sm:px-5 lg:flex-row lg:items-center lg:justify-between lg:gap-4"
           >
             <div className="flex shrink-0 items-center">
               <Link
                 to="/"
                 className="text-lg font-bold tracking-tight text-neutral-900 transition-opacity hover:opacity-70"
               >
-                CVify
+                CVify.
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:flex lg:flex-1 lg:flex-wrap lg:items-center lg:justify-center lg:gap-3">
-              <div className="col-span-2 flex min-w-0 items-center gap-2 sm:col-span-2 lg:col-span-1">
-                <Label className="mb-0 shrink-0 text-sm normal-case tracking-normal text-neutral-600">
-                  Template
-                </Label>
-                <Select
-                  value={layout.template}
-                  onValueChange={(template) => {
-                    if (isTemplateId(template)) {
-                      setLayout({ template });
-                    }
-                  }}
-                >
-                  <SelectTrigger className="w-full min-w-0 sm:w-[140px]" size="sm">
-                    <SelectValue placeholder="Template" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {TEMPLATES.map((template) => (
-                      <SelectItem key={template.id} value={template.id}>
-                        {template.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Label className="mb-0 shrink-0 text-sm normal-case tracking-normal text-neutral-600">
-                  Size
-                </Label>
-                <Select
-                  value={layout.fontSize}
-                  onValueChange={(fontSize) =>
-                    setLayout({ fontSize: fontSize as 'S' | 'M' | 'L' })
-                  }
-                >
-                  <SelectTrigger className="w-full min-w-0 sm:w-[72px]" size="sm">
-                    <SelectValue placeholder="Size" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="S">S</SelectItem>
-                    <SelectItem value="M">M</SelectItem>
-                    <SelectItem value="L">L</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Label className="mb-0 shrink-0 text-sm normal-case tracking-normal text-neutral-600">
-                  Spacing
-                </Label>
-                <Select
-                  value={layout.sectionSpacing}
-                  onValueChange={(sectionSpacing) =>
-                    setLayout({
-                      sectionSpacing: sectionSpacing as 'compact' | 'normal',
-                    })
-                  }
-                >
-                  <SelectTrigger className="w-full min-w-0 sm:w-[110px]" size="sm">
-                    <SelectValue placeholder="Spacing" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="compact">Compact</SelectItem>
-                    <SelectItem value="normal">Normal</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {templateUsesAccentColor(layout.template) && (
-                <div className="flex items-center gap-2">
-                  <Label className="mb-0 shrink-0 text-sm normal-case tracking-normal text-neutral-600">
-                    Accent
-                  </Label>
-                  <Input
-                    type="color"
-                    className="h-8 w-10 shrink-0 cursor-pointer p-1"
-                    value={layout.accentColor}
-                    onChange={(e) => setLayout({ accentColor: e.target.value })}
-                  />
-                </div>
-              )}
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:justify-end lg:shrink-0">
+            <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:justify-end">
               <Button
                 type="button"
                 className="col-span-2 sm:col-span-1"
