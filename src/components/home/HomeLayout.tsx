@@ -1,4 +1,5 @@
-import { type MouseEvent } from 'react';
+import { Menu, X } from 'lucide-react';
+import { type MouseEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -24,30 +25,68 @@ function scrollToSection(
 }
 
 export function HomeNavbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <GlassPanel
-      as="nav"
-      className="grid w-full grid-cols-[1fr_auto_1fr] items-center px-5 py-3"
-    >
-      <Link
-        to="/"
-        className="justify-self-start text-lg font-bold tracking-tight text-neutral-900 transition-opacity hover:opacity-70"
-      >
-        CVify
-      </Link>
-      <div className="flex items-center gap-1">
-        {navLinks.map((link) => (
-          <Button key={link.href} variant="ghost" size="sm" asChild>
-            <a
-              href={link.href}
-              onClick={(event) => scrollToSection(event, link.href)}
-            >
-              {link.label}
-            </a>
-          </Button>
-        ))}
+    <GlassPanel as="nav" className="px-4 py-3 sm:px-5">
+      <div className="flex items-center justify-between gap-3">
+        <Link
+          to="/"
+          className="text-lg font-bold tracking-tight text-neutral-900 transition-opacity hover:opacity-70"
+          onClick={() => setMenuOpen(false)}
+        >
+          CVify.
+        </Link>
+
+        <div className="hidden items-center gap-1 md:flex">
+          {navLinks.map((link) => (
+            <Button key={link.href} variant="ghost" size="sm" asChild>
+              <a
+                href={link.href}
+                onClick={(event) => scrollToSection(event, link.href)}
+              >
+                {link.label}
+              </a>
+            </Button>
+          ))}
+        </div>
+
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          className="md:hidden"
+          aria-expanded={menuOpen}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? <X /> : <Menu />}
+        </Button>
       </div>
-      <div aria-hidden="true" className="justify-self-end" />
+
+      {menuOpen && (
+        <div className="mt-3 flex flex-col gap-1 border-t border-neutral-600/40 pt-3 md:hidden">
+          {navLinks.map((link) => (
+            <Button
+              key={link.href}
+              variant="ghost"
+              size="sm"
+              className="justify-start"
+              asChild
+            >
+              <a
+                href={link.href}
+                onClick={(event) => {
+                  scrollToSection(event, link.href);
+                  setMenuOpen(false);
+                }}
+              >
+                {link.label}
+              </a>
+            </Button>
+          ))}
+        </div>
+      )}
     </GlassPanel>
   );
 }

@@ -43,7 +43,7 @@ const features = [
 
 export function HomeFeatures() {
   return (
-    <section id="features" className="mt-16 scroll-mt-28">
+    <section id="features" className="mt-12 scroll-mt-24 sm:mt-16 sm:scroll-mt-28">
       <SectionHeading
         subtitle="Features"
         title="Everything you need, nothing you don't"

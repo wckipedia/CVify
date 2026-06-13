@@ -37,7 +37,7 @@ const faqs = [
 
 export function HomeFaq() {
   return (
-    <section id="faq" className="mt-16 scroll-mt-28">
+    <section id="faq" className="mt-12 scroll-mt-24 sm:mt-16 sm:scroll-mt-28">
       <SectionHeading subtitle="FAQ" title="Common questions" />
       <div className="space-y-3">
         {faqs.map((item) => (

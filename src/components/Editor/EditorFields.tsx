@@ -116,6 +116,7 @@ export function BulletListEditor({
       {bullets.map((bullet, index) => (
         <div key={index} className="flex gap-2">
           <Input
+            className="min-w-0 flex-1"
             value={bullet}
             onChange={(e) => onChange(index, e.target.value)}
             placeholder="Achievement or responsibility"

@@ -73,7 +73,7 @@ export function SummarySection() {
 
   return (
     <section>
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-base font-semibold text-neutral-900">Summary</h2>
         <div className="flex items-center gap-2">
           <Checkbox

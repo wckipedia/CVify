@@ -9,13 +9,13 @@ import { HomeProblem } from '../components/home/HomeProblem';
 
 export function HomePage() {
   return (
-    <div className="min-h-screen pb-12">
-      <div className="fixed inset-x-0 top-4 z-50">
-        <div className="mx-auto max-w-6xl px-4">
+    <div className="min-h-screen pb-8 sm:pb-12">
+      <div className="fixed inset-x-0 top-2 z-50 sm:top-4">
+        <div className="mx-auto max-w-6xl px-3 sm:px-4">
           <HomeNavbar />
         </div>
       </div>
-      <main className="mx-auto max-w-6xl px-4 pb-6 pt-28">
+      <main className="mx-auto max-w-6xl px-3 pb-6 pt-24 sm:px-4 sm:pt-28">
         <HomeHero />
         <HomeProblem />
         <HomeFeatures />

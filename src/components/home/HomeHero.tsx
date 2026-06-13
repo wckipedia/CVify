@@ -10,7 +10,7 @@ const badges = ['Free forever', 'No sign-up', 'Runs in your browser'];
 export function HomeHero() {
   return (
     <section className="relative">
-      <GlassPanel className="overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
+      <GlassPanel className="overflow-hidden px-5 py-10 sm:px-10 sm:py-16">
         <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-neutral-900/[0.03] blur-3xl" />
         <div className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-neutral-900/[0.04] blur-3xl" />
 
@@ -37,8 +37,8 @@ export function HomeHero() {
             </p>
 
             <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-neutral-500 lg:mx-0">
-              Everything runs in your browser. Edit on the left, preview on the
-              right, export when you are ready. No subscriptions, no upsells, no
+              Everything runs in your browser. Switch between editor and preview,
+              export when you are ready. No subscriptions, no upsells, no
               &ldquo;create an account to download.&rdquo;
             </p>
 

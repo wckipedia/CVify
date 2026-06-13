@@ -32,7 +32,7 @@ const steps = [
 
 export function HomeHowItWorks() {
   return (
-    <section id="how-it-works" className="mt-16 scroll-mt-28">
+    <section id="how-it-works" className="mt-12 scroll-mt-24 sm:mt-16 sm:scroll-mt-28">
       <SectionHeading
         subtitle="How it works"
         title="Three steps to a finished resume"

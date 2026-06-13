@@ -7,7 +7,7 @@ import { SkillsSection } from './SkillsSection';
 
 export function EditorPanel() {
   return (
-    <div className="space-y-8 p-6">
+    <div className="space-y-8 p-4 sm:p-6">
       <PersonalInfoSection />
       <SummarySection />
       <SkillsSection />
