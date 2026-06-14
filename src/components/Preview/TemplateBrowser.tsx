@@ -136,7 +136,6 @@ function TemplateSlide({
   selected,
   onSelect,
   onConfirm,
-  compact = false,
   enableTransition = false,
   previewOnly = false,
   chromeReveal = 'content',
@@ -146,7 +145,6 @@ function TemplateSlide({
   selected: boolean;
   onSelect: () => void;
   onConfirm: () => void;
-  compact?: boolean;
   enableTransition?: boolean;
   previewOnly?: boolean;
   chromeReveal?: ChromeRevealPhase;
@@ -925,7 +923,6 @@ export function TemplateBrowser({
           selected
           onSelect={() => undefined}
           onConfirm={() => undefined}
-          compact
         />
       </div>
 
