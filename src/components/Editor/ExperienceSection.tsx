@@ -60,6 +60,7 @@ export function ExperienceSection() {
                 onChange={(location) =>
                   updateExperience(entry.id, { location })
                 }
+                className="sm:col-span-2"
               />
               <Field
                 label="Start date"

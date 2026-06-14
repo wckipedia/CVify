@@ -35,7 +35,7 @@ export function BuilderPage() {
         <div className="flex flex-col gap-6 lg:flex-row print:block">
           <GlassPanel
             className={cn(
-              'no-print w-full shrink-0 lg:max-h-[calc(100vh-7rem)] lg:max-w-xl lg:overflow-y-auto lg:overscroll-y-contain',
+              'editor-scroll no-print w-full shrink-0 lg:max-h-[calc(100vh-7rem)] lg:max-w-xl lg:overflow-y-auto lg:overscroll-y-contain',
               mobilePanel !== 'editor' && 'hidden lg:block',
             )}
           >

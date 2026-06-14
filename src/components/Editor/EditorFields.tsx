@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
 
 interface FieldProps {
   label: string;
@@ -10,6 +11,7 @@ interface FieldProps {
   onChange: (value: string) => void;
   placeholder?: string;
   type?: string;
+  className?: string;
 }
 
 export function Field({
@@ -18,9 +20,10 @@ export function Field({
   onChange,
   placeholder,
   type = 'text',
+  className,
 }: FieldProps) {
   return (
-    <div className="block">
+    <div className={cn('block', className)}>
       <Label htmlFor={label}>{label}</Label>
       <Input
         id={label}

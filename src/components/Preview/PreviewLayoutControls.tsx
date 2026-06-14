@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import {
@@ -11,23 +10,24 @@ import {
 import { useResumeStore } from '../../store/resumeStore';
 import { getTemplateName, templateUsesAccentColor } from '../templates/registry';
 import { AccentColorPicker } from './AccentColorPicker';
-import { TemplateBrowser } from './TemplateBrowser';
 
-export function PreviewLayoutControls() {
+export function PreviewLayoutControls({
+  onOpenTemplates,
+}: {
+  onOpenTemplates: () => void;
+}) {
   const layout = useResumeStore((s) => s.data.layout);
   const setLayout = useResumeStore((s) => s.setLayout);
-  const [browserOpen, setBrowserOpen] = useState(false);
 
   return (
-    <>
-      <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
-        <div className="flex items-center gap-2">
-          <Button
-            type="button"
-            variant="secondary"
-            size="sm"
-            onClick={() => setBrowserOpen(true)}
-          >
+    <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
+      <div className="flex items-center gap-2">
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          onClick={onOpenTemplates}
+        >
             View templates
           </Button>
           <span className="text-xs text-neutral-500">
@@ -89,9 +89,6 @@ export function PreviewLayoutControls() {
             />
           </div>
         )}
-      </div>
-
-      <TemplateBrowser open={browserOpen} onClose={() => setBrowserOpen(false)} />
-    </>
+    </div>
   );
 }
