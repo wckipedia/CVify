@@ -15,49 +15,59 @@ export async function exportPdf(filename = 'resume'): Promise<void> {
     throw new Error('Resume preview not found.');
   }
 
+  const pages = Array.from(
+    element.querySelectorAll<HTMLElement>('.resume-print-page'),
+  );
+  const captureTargets = pages.length > 0 ? pages : [element];
+
   const [{ domToCanvas }, { jsPDF }] = await Promise.all([
     import('modern-screenshot'),
     import('jspdf'),
   ]);
 
-  const { element: captureRoot, cleanup } =
-    await createIsolatedCaptureRoot(element);
+  const pdf = new jsPDF({
+    orientation: 'portrait',
+    unit: 'in',
+    format: 'letter',
+  });
 
-  try {
-    const canvas = await domToCanvas(captureRoot, {
-      scale: 2,
-      backgroundColor: '#ffffff',
-      width: captureRoot.offsetWidth,
-      height: captureRoot.offsetHeight,
-    });
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
 
-    const pdf = new jsPDF({
-      orientation: 'portrait',
-      unit: 'mm',
-      format: 'a4',
-    });
+  for (const [index, target] of captureTargets.entries()) {
+    const { element: captureRoot, cleanup } =
+      await createIsolatedCaptureRoot(target);
 
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-    const imgWidth = pageWidth;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-    const imgData = canvas.toDataURL('image/jpeg', 0.98);
+    try {
+      const canvas = await domToCanvas(captureRoot, {
+        scale: 2,
+        backgroundColor: '#ffffff',
+        width: captureRoot.offsetWidth,
+        height: captureRoot.offsetHeight,
+      });
 
-    let heightLeft = imgHeight;
-    let position = 0;
+      if (index > 0) {
+        pdf.addPage();
+      }
 
-    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-    heightLeft -= pageHeight;
+      const imgHeight = (canvas.height * pageWidth) / canvas.width;
+      const imgData = canvas.toDataURL('image/jpeg', 0.98);
 
-    while (heightLeft > 0) {
-      position -= pageHeight;
-      pdf.addPage();
-      pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
+      pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, imgHeight);
+
+      let heightLeft = imgHeight - pageHeight;
+      let position = -pageHeight;
+
+      while (heightLeft > 0) {
+        pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', 0, position, pageWidth, imgHeight);
+        heightLeft -= pageHeight;
+        position -= pageHeight;
+      }
+    } finally {
+      cleanup();
     }
-
-    pdf.save(`${sanitizeFilename(filename)}.pdf`);
-  } finally {
-    cleanup();
   }
+
+  pdf.save(`${sanitizeFilename(filename)}.pdf`);
 }

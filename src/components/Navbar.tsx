@@ -41,10 +41,10 @@ export function Navbar() {
   return (
     <>
       <div className="no-print fixed inset-x-0 top-2 z-50 sm:top-4">
-        <div className="mx-auto max-w-[1600px] px-3 sm:px-4">
+        <div className="mx-auto max-w-[1840px] px-3 sm:px-5 lg:px-6">
           <GlassPanel
             as="nav"
-            className="flex w-full flex-col gap-3 px-4 py-3 sm:px-5 lg:flex-row lg:items-center lg:justify-between lg:gap-4"
+            className="flex w-full flex-col gap-3 px-4 py-3 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-4"
           >
             <div className="flex shrink-0 items-center">
               <Link

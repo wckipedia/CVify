@@ -64,6 +64,8 @@ const PDF_STYLE_PROPS = [
   'opacity',
   'overflow',
   'vertical-align',
+  'transform',
+  'transform-origin',
 ];
 
 const COLOR_PROPS = new Set([
@@ -171,6 +173,18 @@ function applyStyleSnapshot(
   cloneRoot.style.color = '#000000';
 }
 
+function hidePdfOnlyNodes(sourceRoot: HTMLElement, cloneRoot: HTMLElement): void {
+  const sourceNodes = [sourceRoot, ...sourceRoot.querySelectorAll('*')];
+  const cloneNodes = [cloneRoot, ...cloneRoot.querySelectorAll('*')];
+  const count = Math.min(sourceNodes.length, cloneNodes.length);
+
+  for (let i = 0; i < count; i += 1) {
+    if (sourceNodes[i].hasAttribute('data-pdf-hidden')) {
+      (cloneNodes[i] as HTMLElement).style.display = 'none';
+    }
+  }
+}
+
 export async function createIsolatedCaptureRoot(source: HTMLElement): Promise<{
   element: HTMLElement;
   cleanup: () => void;
@@ -211,6 +225,7 @@ export async function createIsolatedCaptureRoot(source: HTMLElement): Promise<{
   const clone = source.cloneNode(true) as HTMLElement;
   stripAttributes(clone);
   applyStyleSnapshot(source, clone, snapshot);
+  hidePdfOnlyNodes(source, clone);
   iframeDocument.body.appendChild(clone);
   iframe.style.height = `${Math.max(clone.scrollHeight, clone.offsetHeight)}px`;
 
