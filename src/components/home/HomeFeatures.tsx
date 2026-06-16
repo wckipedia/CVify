@@ -1,9 +1,3 @@
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { glassCardClass } from '../GlassPanel';
 import { SectionHeading } from './HomeLayout';
@@ -11,59 +5,63 @@ import { SectionHeading } from './HomeLayout';
 const features = [
   {
     title: 'Live preview',
-    description:
-      'See every change instantly on the right as you type. No refresh, no guesswork.',
+    bullets: ['Instant updates', 'No refresh needed', 'Always visible'],
   },
   {
     title: 'Structured sections',
-    description:
-      'Personal info, summary, skills, experience, education, projects, and certifications — all organized.',
+    bullets: ['Guided resume fields', 'Everything organized', 'Easy to scan'],
   },
   {
     title: 'Reorder & toggle',
-    description:
-      'Move entries up or down, hide optional sections, and keep only what belongs on your resume.',
+    bullets: [
+      'Move entries easily',
+      'Hide optional sections',
+      'Keep it focused',
+    ],
   },
   {
     title: 'Autosave',
-    description:
-      'Your work saves to localStorage automatically. Close the tab and pick up where you left off.',
-  },
-  {
-    title: 'JSON backup',
-    description:
-      'Export your data as JSON for backups or import it later on another device.',
+    bullets: ['Saves in-browser', 'Pick up later', 'No account needed'],
   },
   {
     title: 'Print-ready PDF',
-    description:
-      'Download a clean PDF straight from the builder — no print dialog, no watermarks.',
+    bullets: ['Clean PDF export', 'No watermark', 'Ready to send'],
   },
 ];
 
 export function HomeFeatures() {
   return (
-    <section id="features" className="mt-12 scroll-mt-24 sm:mt-16 sm:scroll-mt-28">
+    <section
+      id="features"
+      className="mt-12 scroll-mt-24 sm:mt-16 sm:scroll-mt-28"
+    >
       <SectionHeading
         subtitle="Features"
-        title="Everything you need, nothing you don't"
+        title="Build faster, export cleaner"
       />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {features.map((feature) => (
-          <Card
+          <article
             key={feature.title}
             className={cn(
               glassCardClass,
-              'group transition-shadow hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)]',
+              'flex min-h-[210px] flex-col rounded-2xl p-5 transition-transform duration-200 hover:-translate-y-0.5 sm:p-6',
             )}
           >
-            <CardHeader className="p-6">
-              <CardTitle className="text-base">{feature.title}</CardTitle>
-              <CardDescription className="leading-relaxed text-neutral-600">
-                {feature.description}
-              </CardDescription>
-            </CardHeader>
-          </Card>
+            <div className="min-h-8">
+              <h3 className="text-base font-semibold leading-snug text-neutral-900">
+                {feature.title}
+              </h3>
+            </div>
+            <ul className="mt-4 space-y-2.5 text-sm leading-relaxed text-neutral-600">
+              {feature.bullets.map((bullet) => (
+                <li key={bullet} className="flex gap-2">
+                  <span className="mt-2 size-1 shrink-0 rounded-full bg-neutral-400" />
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
         ))}
       </div>
     </section>

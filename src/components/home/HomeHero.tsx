@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { GlassPanel, glassCardClass } from '../GlassPanel';
 import { cn } from '@/lib/utils';
+import { GlassPanel, glassCardClass } from '../GlassPanel';
 
 const badges = ['Free forever', 'No sign-up', 'Runs in your browser'];
 
@@ -37,9 +37,9 @@ export function HomeHero() {
             </p>
 
             <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-neutral-500 lg:mx-0">
-              Everything runs in your browser. Switch between editor and preview,
-              export when you are ready. No subscriptions, no upsells, no
-              &ldquo;create an account to download.&rdquo;
+              Everything runs in your browser. Switch between editor and
+              preview, export when you are ready. No subscriptions, no upsells,
+              no &ldquo;create an account to download.&rdquo;
             </p>
 
             <div className="mt-8 flex justify-center lg:justify-start">
@@ -57,7 +57,10 @@ export function HomeHero() {
               )}
             >
               <CardContent className="rounded-xl bg-white p-5 shadow-inner">
-                <Badge variant="outline" className="text-[10px] uppercase tracking-widest">
+                <Badge
+                  variant="outline"
+                  className="text-[10px] uppercase tracking-widest"
+                >
                   Live preview
                 </Badge>
                 <h3 className="mt-2 text-lg font-bold text-neutral-900">

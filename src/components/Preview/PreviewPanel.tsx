@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useResumeStore } from '../../store/resumeStore';
 import { ResumePreviewSkeleton } from '../ui/resume-preview-skeleton';
-import { getTemplateComponent } from '../templates/registry';
+import { getTemplateComponent, getTemplateName } from '../templates/registry';
 import { PreviewLayoutControls } from './PreviewLayoutControls';
 import { TemplateBrowser } from './TemplateBrowser';
 
@@ -28,16 +28,15 @@ export function PreviewPanel() {
     setPreviewRevealed(true);
   }, []);
 
-  const getPreviewElement = useCallback(
-    () => previewRef.current,
-    [],
-  );
+  const getPreviewElement = useCallback(() => previewRef.current, []);
 
   return (
     <div className="p-4 sm:p-6 print:p-0">
       <div className="no-print mb-4 flex flex-col items-center gap-4 text-center">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500">
-          Live Preview
+        <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-neutral-500">
+          <span>Live Preview</span>
+          <span aria-hidden="true">•</span>
+          <span>{getTemplateName(data.layout.template)}</span>
         </h2>
         <PreviewLayoutControls onOpenTemplates={handleOpenTemplates} />
       </div>

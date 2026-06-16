@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useResumeStore } from '../../store/resumeStore';
-import { getTemplateName, templateUsesAccentColor } from '../templates/registry';
+import { templateUsesAccentColor } from '../templates/registry';
 import { AccentColorPicker } from './AccentColorPicker';
 
 export function PreviewLayoutControls({
@@ -28,67 +28,64 @@ export function PreviewLayoutControls({
           size="sm"
           onClick={onOpenTemplates}
         >
-            View templates
-          </Button>
-          <span className="text-xs text-neutral-500">
-            {getTemplateName(layout.template)}
-          </span>
-        </div>
+          View templates
+        </Button>
+      </div>
 
+      <div className="flex items-center gap-2">
+        <Label className="mb-0 shrink-0 text-sm normal-case tracking-normal text-neutral-600">
+          Size
+        </Label>
+        <Select
+          value={layout.fontSize}
+          onValueChange={(fontSize) =>
+            setLayout({ fontSize: fontSize as 'S' | 'M' | 'L' })
+          }
+        >
+          <SelectTrigger className="w-[72px]" size="sm">
+            <SelectValue placeholder="Size" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="S">S</SelectItem>
+            <SelectItem value="M">M</SelectItem>
+            <SelectItem value="L">L</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <Label className="mb-0 shrink-0 text-sm normal-case tracking-normal text-neutral-600">
+          Spacing
+        </Label>
+        <Select
+          value={layout.sectionSpacing}
+          onValueChange={(sectionSpacing) =>
+            setLayout({
+              sectionSpacing: sectionSpacing as 'compact' | 'normal',
+            })
+          }
+        >
+          <SelectTrigger className="w-[110px]" size="sm">
+            <SelectValue placeholder="Spacing" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="compact">Compact</SelectItem>
+            <SelectItem value="normal">Normal</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {templateUsesAccentColor(layout.template) && (
         <div className="flex items-center gap-2">
           <Label className="mb-0 shrink-0 text-sm normal-case tracking-normal text-neutral-600">
-            Size
+            Accent
           </Label>
-          <Select
-            value={layout.fontSize}
-            onValueChange={(fontSize) =>
-              setLayout({ fontSize: fontSize as 'S' | 'M' | 'L' })
-            }
-          >
-            <SelectTrigger className="w-[72px]" size="sm">
-              <SelectValue placeholder="Size" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="S">S</SelectItem>
-              <SelectItem value="M">M</SelectItem>
-              <SelectItem value="L">L</SelectItem>
-            </SelectContent>
-          </Select>
+          <AccentColorPicker
+            value={layout.accentColor}
+            onChange={(accentColor) => setLayout({ accentColor })}
+          />
         </div>
-
-        <div className="flex items-center gap-2">
-          <Label className="mb-0 shrink-0 text-sm normal-case tracking-normal text-neutral-600">
-            Spacing
-          </Label>
-          <Select
-            value={layout.sectionSpacing}
-            onValueChange={(sectionSpacing) =>
-              setLayout({
-                sectionSpacing: sectionSpacing as 'compact' | 'normal',
-              })
-            }
-          >
-            <SelectTrigger className="w-[110px]" size="sm">
-              <SelectValue placeholder="Spacing" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="compact">Compact</SelectItem>
-              <SelectItem value="normal">Normal</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        {templateUsesAccentColor(layout.template) && (
-          <div className="flex items-center gap-2">
-            <Label className="mb-0 shrink-0 text-sm normal-case tracking-normal text-neutral-600">
-              Accent
-            </Label>
-            <AccentColorPicker
-              value={layout.accentColor}
-              onChange={(accentColor) => setLayout({ accentColor })}
-            />
-          </div>
-        )}
+      )}
     </div>
   );
 }

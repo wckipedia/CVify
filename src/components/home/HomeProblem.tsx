@@ -14,7 +14,7 @@ const painPoints = [
 const solutions = [
   'Open the builder and start immediately',
   'Eleven polished templates — free, no tiers',
-  'Export PDF or JSON anytime, no account',
+  'Export a clean PDF anytime, no account',
   'Clean editor focused on your content',
 ];
 
@@ -46,12 +46,7 @@ export function HomeProblem() {
             </ul>
           </CardContent>
         </Card>
-        <Card
-          className={cn(
-            glassCardClass,
-            'border-neutral-900/20 bg-white/70 p-6 sm:p-8',
-          )}
-        >
+        <Card className={cn(glassCardClass, 'bg-white/70 p-6 sm:p-8')}>
           <CardHeader className="p-0">
             <Label className="text-xs font-semibold uppercase tracking-widest text-neutral-900">
               The CVify way

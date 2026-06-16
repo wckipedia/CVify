@@ -17,12 +17,12 @@ const privacyPoints = [
   {
     title: 'Local autosave only',
     description:
-      'Edits are saved to your browser’s localStorage. Clear site data and it is gone — export JSON if you want a backup.',
+      'Edits are saved to your browser’s localStorage. Clear site data and your saved resume is cleared too.',
   },
   {
-    title: 'You own your exports',
+    title: 'You own your PDF',
     description:
-      'PDF and JSON files are generated on your device. Download them and use them anywhere, with no watermark.',
+      'PDF files are generated on your device. Download them and use them anywhere, with no watermark.',
   },
 ];
 

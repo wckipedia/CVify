@@ -1,5 +1,4 @@
 import { HomeCta } from '../components/home/HomeCta';
-import { HomeFaq } from '../components/home/HomeFaq';
 import { HomeFeatures } from '../components/home/HomeFeatures';
 import { HomeHero } from '../components/home/HomeHero';
 import { HomeNavbar } from '../components/home/HomeLayout';
@@ -21,7 +20,6 @@ export function HomePage() {
         <HomeFeatures />
         <HomeHowItWorks />
         <HomePrivacy />
-        <HomeFaq />
         <HomeCta />
       </main>
     </div>

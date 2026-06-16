@@ -9,7 +9,6 @@ import { GlassPanel } from '../GlassPanel';
 const navLinks = [
   { href: '#features', label: 'Features' },
   { href: '#how-it-works', label: 'How it works' },
-  { href: '#faq', label: 'FAQ' },
 ];
 
 const navLinkClass =

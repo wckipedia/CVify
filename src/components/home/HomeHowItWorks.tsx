@@ -26,13 +26,16 @@ const steps = [
     step: '03',
     title: 'Export and apply',
     description:
-      'Download a PDF or export JSON to keep a backup. Your data never leaves your browser unless you download it.',
+      'Download a polished PDF when you are ready. Your resume data stays in your browser.',
   },
 ];
 
 export function HomeHowItWorks() {
   return (
-    <section id="how-it-works" className="mt-12 scroll-mt-24 sm:mt-16 sm:scroll-mt-28">
+    <section
+      id="how-it-works"
+      className="mt-12 scroll-mt-24 sm:mt-16 sm:scroll-mt-28"
+    >
       <SectionHeading
         subtitle="How it works"
         title="Three steps to a finished resume"
@@ -46,7 +49,10 @@ export function HomeHowItWorks() {
             {index < steps.length - 1 && (
               <span className="pointer-events-none absolute right-0 top-1/2 hidden h-px w-4 translate-x-full bg-black/10 lg:block" />
             )}
-            <Badge variant="outline" className="text-lg font-bold tracking-tight">
+            <Badge
+              variant="outline"
+              className="text-lg font-bold tracking-tight"
+            >
               {item.step}
             </Badge>
             <CardHeader className="p-0 pt-3">
