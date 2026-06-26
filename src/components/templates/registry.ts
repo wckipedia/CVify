@@ -2,12 +2,15 @@ import type { ComponentType } from 'react';
 import type { ResumeData, TemplateId } from '../../types/resume';
 import { ATSCleanTemplate } from './ATSCleanTemplate';
 import { BentoTemplate } from './BentoTemplate';
+import { ChronicleTemplate } from './ChronicleTemplate';
 import { DesignerTemplate } from './DesignerTemplate';
 import { EditorialTemplate } from './EditorialTemplate';
 import { ElegantTemplate } from './ElegantTemplate';
 import { ExecutiveTemplate } from './ExecutiveTemplate';
+import { HybridFocusTemplate } from './HybridFocusTemplate';
 import { ModernTemplate } from './ModernTemplate';
 import { SidebarProTemplate } from './SidebarProTemplate';
+import { SplitRailTemplate } from './SplitRailTemplate';
 import { SunriseTemplate } from './SunriseTemplate';
 import { TechTemplate } from './TechTemplate';
 import { TimelineTemplate } from './TimelineTemplate';
@@ -85,6 +88,24 @@ export const TEMPLATES: TemplateDefinition[] = [
     name: 'Editorial',
     usesAccentColor: true,
     component: EditorialTemplate,
+  },
+  {
+    id: 'chronicle',
+    name: 'Chronicle',
+    usesAccentColor: true,
+    component: ChronicleTemplate,
+  },
+  {
+    id: 'split-rail',
+    name: 'Split Rail',
+    usesAccentColor: true,
+    component: SplitRailTemplate,
+  },
+  {
+    id: 'hybrid-focus',
+    name: 'Hybrid Focus',
+    usesAccentColor: true,
+    component: HybridFocusTemplate,
   },
 ];
 

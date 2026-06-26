@@ -1,12 +1,15 @@
 import type { ResumeData } from '../../types/resume';
 import { ATSCleanTemplate } from './ATSCleanTemplate';
 import { BentoTemplate } from './BentoTemplate';
+import { ChronicleTemplate } from './ChronicleTemplate';
 import { DesignerTemplate } from './DesignerTemplate';
 import { EditorialTemplate } from './EditorialTemplate';
 import { ElegantTemplate } from './ElegantTemplate';
 import { ExecutiveTemplate } from './ExecutiveTemplate';
+import { HybridFocusTemplate } from './HybridFocusTemplate';
 import { ModernTemplate } from './ModernTemplate';
 import { SidebarProTemplate } from './SidebarProTemplate';
+import { SplitRailTemplate } from './SplitRailTemplate';
 import { SunriseTemplate } from './SunriseTemplate';
 import { TechTemplate } from './TechTemplate';
 import { TimelineTemplate } from './TimelineTemplate';
@@ -37,6 +40,12 @@ export function TemplateRenderer({ data }: TemplateRendererProps) {
       return <BentoTemplate data={data} />;
     case 'editorial':
       return <EditorialTemplate data={data} />;
+    case 'chronicle':
+      return <ChronicleTemplate data={data} />;
+    case 'split-rail':
+      return <SplitRailTemplate data={data} />;
+    case 'hybrid-focus':
+      return <HybridFocusTemplate data={data} />;
     case 'ats-clean':
     default:
       return <ATSCleanTemplate data={data} />;

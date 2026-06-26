@@ -5,7 +5,7 @@ A free resume builder with a live preview, multiple design templates, and PDF ex
 ## Features
 
 - **Live editor + preview** — Edit on the left, see changes instantly on the right
-- **11 resume templates** — From ATS-friendly single-column layouts to multi-column designs (Designer, Sunrise, Sidebar Pro, Timeline, Bento, Editorial, and more)
+- **14 resume templates** — From ATS-friendly single-column layouts to multi-column designs (Designer, Sunrise, Sidebar Pro, Timeline, Bento, Editorial, Chronicle, Split Rail, Hybrid Focus, and more)
 - **Full resume sections** — Personal info, summary, skills (with drag-and-drop reorder), experience, education, projects, and certifications
 - **Layout controls** — Font size, section spacing, and accent color (on supported templates)
 - **PDF download** — Python + Playwright rendering for higher-fidelity PDFs, with browser export fallback
@@ -15,19 +15,22 @@ A free resume builder with a live preview, multiple design templates, and PDF ex
 
 ## Templates
 
-| Template | Style |
-| --- | --- |
-| ATS Clean | Serif, centered — safe for applicant tracking systems |
-| Modern | Sans-serif with accent color |
-| Executive | Bold uppercase header with accent border |
-| Elegant | Garamond, centered decorative rules |
-| Tech | Monospace accents, bordered header |
-| Designer | Two-column magazine layout with photo placeholder |
-| Sunrise | Orange gradient header, skill bars |
-| Sidebar Pro | Dark sidebar with pill section headers |
-| Timeline | Vertical experience timeline with skill pills |
-| Bento | Mosaic grid of content tiles |
-| Editorial | Magazine masthead with three-column body |
+| Template     | Style                                                           |
+| ------------ | --------------------------------------------------------------- |
+| ATS Clean    | Serif, centered — safe for applicant tracking systems           |
+| Modern       | Sans-serif with accent color                                    |
+| Executive    | Bold uppercase header with accent border                        |
+| Elegant      | Garamond, centered decorative rules                             |
+| Tech         | Monospace accents, bordered header                              |
+| Designer     | Two-column magazine layout with photo placeholder               |
+| Sunrise      | Orange gradient header, skill bars                              |
+| Sidebar Pro  | Dark sidebar with pill section headers                          |
+| Timeline     | Vertical experience timeline with skill pills                   |
+| Bento        | Mosaic grid of content tiles                                    |
+| Editorial    | Magazine masthead with three-column body                        |
+| Chronicle    | Clean chronological serif layout for ATS-friendly applications  |
+| Split Rail   | Modern sidebar layout with contact and skills in a colored rail |
+| Hybrid Focus | Skills-first hybrid format with chronological work history      |
 
 Templates that support accent color show an **Accent** picker in the navbar.
 

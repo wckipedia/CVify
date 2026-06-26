@@ -59,7 +59,10 @@ export type TemplateId =
   | 'sidebar-pro'
   | 'timeline'
   | 'bento'
-  | 'editorial';
+  | 'editorial'
+  | 'chronicle'
+  | 'split-rail'
+  | 'hybrid-focus';
 export type FontSize = 'S' | 'M' | 'L';
 export type SectionSpacing = 'compact' | 'normal';
 
