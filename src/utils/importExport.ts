@@ -1,5 +1,6 @@
 import type { ResumeData } from '../types/resume';
 import { exportPdf as downloadPdf } from './exportPdf';
+import { downloadBlob, exportPdfWithPython } from './pythonPdfExport';
 import { parseResumeJson } from './validation';
 
 export function exportResumeJson(data: ResumeData): void {
@@ -33,6 +34,25 @@ export function importResumeJson(file: File): Promise<ResumeData> {
   });
 }
 
-export async function exportPdf(filename = 'resume'): Promise<void> {
-  await downloadPdf(filename);
+export async function exportPdf(
+  filename = 'resume',
+  data?: ResumeData,
+): Promise<void> {
+  if (!data) {
+    await downloadPdf(filename);
+    return;
+  }
+
+  try {
+    const result = await exportPdfWithPython(data, filename);
+    downloadBlob(result.blob, result.filename);
+  } catch (error) {
+    if (import.meta.env.DEV) {
+      console.warn(
+        'Python PDF export unavailable; using browser fallback.',
+        error,
+      );
+    }
+    await downloadPdf(filename);
+  }
 }

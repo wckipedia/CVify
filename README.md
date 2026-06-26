@@ -1,6 +1,6 @@
 # CVify
 
-A free, client-side resume builder with a live preview, multiple design templates, and PDF export. No account, no backend — everything runs in your browser and saves to `localStorage`.
+A free resume builder with a live preview, multiple design templates, and PDF export. No account required — editing runs in your browser and saves to `localStorage`, while PDF export can use an optional local Python renderer for higher-fidelity downloads.
 
 ## Features
 
@@ -8,7 +8,7 @@ A free, client-side resume builder with a live preview, multiple design template
 - **11 resume templates** — From ATS-friendly single-column layouts to multi-column designs (Designer, Sunrise, Sidebar Pro, Timeline, Bento, Editorial, and more)
 - **Full resume sections** — Personal info, summary, skills (with drag-and-drop reorder), experience, education, projects, and certifications
 - **Layout controls** — Font size, section spacing, and accent color (on supported templates)
-- **PDF download** — Direct export via `modern-screenshot` + jsPDF (no print dialog)
+- **PDF download** — Python + Playwright rendering for higher-fidelity PDFs, with browser export fallback
 - **JSON import/export** — Back up or restore your resume data as a portable file
 - **Autosave** — Resume data persists in the browser automatically
 - **Homepage** — Landing page with product overview at `/`
@@ -37,26 +37,40 @@ Templates that support accent color show an **Accent** picker in the navbar.
 - [Vite](https://vite.dev/)
 - [Tailwind CSS v4](https://tailwindcss.com/)
 - [Zustand](https://zustand.docs.pmnd.rs/) — state & persistence
-- [React Router](https://reactrouter.com/) — `/` and `/builder`
+- [React Router](https://reactrouter.com/) — `/`, `/builder`, and `/print`
 - [Radix UI](https://www.radix-ui.com/) + [shadcn-style components](src/components/ui/) — buttons, inputs, selects, checkboxes
 - [@dnd-kit](https://dnd-kit.com/) — skill category drag-and-drop
-- [modern-screenshot](https://github.com/qq15725/modern-screenshot) + [jsPDF](https://github.com/parallax/jsPDF) — PDF export
+- [Playwright for Python](https://playwright.dev/python/) — high-fidelity PDF rendering
+- [modern-screenshot](https://github.com/qq15725/modern-screenshot) + [jsPDF](https://github.com/parallax/jsPDF) — browser PDF fallback
 
 ## Getting started
 
-**Requirements:** Node.js 20+
+**Requirements:** Node.js 20+, Python 3.10+
 
 ```bash
 npm install
+python3 -m pip install -r requirements.txt
+python3 -m playwright install chromium
 npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173). Click **Start building** or go to `/builder`.
 
+### PDF export server
+
+For the best PDF output, run the local Python renderer in a second terminal:
+
+```bash
+npm run pdf-server
+```
+
+The web app posts the current resume data to `/api/export-pdf`, which Vite proxies to the Python server at `http://127.0.0.1:8765`. The server opens the `/print` route in headless Chromium and returns a letter-size PDF. If the Python server is not running, the app falls back to the older browser-side `modern-screenshot` + jsPDF export.
+
 ### Other scripts
 
 ```bash
 npm run build    # Production build → dist/
+npm run pdf-server # Start local Python PDF renderer
 npm run preview  # Preview production build locally
 npm run lint     # ESLint
 npm run format   # Prettier (src/**/*.{ts,tsx,css})
@@ -75,23 +89,29 @@ Skill categories can be reordered by dragging the handle on the left of each car
 ## Data & privacy
 
 - All resume content stays in your browser (`localStorage` key: `cvify-resume-data`).
-- Nothing is sent to a server. Deploy as a static site anywhere (Netlify, Vercel, GitHub Pages, etc.).
-- PDF generation captures the preview DOM client-side.
+- When `npm run pdf-server` is running, PDF export sends the current resume JSON to your local Python server only.
+- Without the Python server, PDF generation falls back to client-side browser capture.
+- Static deployment still works for editing and browser-fallback export. High-fidelity Python export requires a server environment that can run Playwright.
 
 ## Project structure
 
 ```
 src/
-├── pages/              HomePage, BuilderPage
+├── pages/              HomePage, BuilderPage, PrintPage
 ├── components/
 │   ├── Editor/         Form sections (personal info, experience, …)
 │   ├── Preview/        Live preview panel
-│   ├── templates/      Template components + registry
+│   ├── templates/      Template components, renderer, registry
 │   ├── home/           Landing page sections
 │   └── ui/             shadcn-style UI primitives
 ├── store/              Zustand resume store
 ├── types/              Resume data model
 └── utils/              Defaults, validation, PDF export, import/export
+```
+
+```
+scripts/
+└── pdf_server.py       Local Playwright PDF export server
 ```
 
 ## Adding a template

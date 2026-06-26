@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { BuilderPage } from '@/pages/BuilderPage';
 import { HomePage } from '@/pages/HomePage';
+import { PrintPage } from '@/pages/PrintPage';
 
 type TransitionPhase = 'idle' | 'exiting' | 'entering';
 
@@ -13,6 +14,7 @@ export function PageTransition() {
   const [displayLocation, setDisplayLocation] = useState(location);
   const [phase, setPhase] = useState<TransitionPhase>('idle');
 
+  const isPrint = displayLocation.pathname === '/print';
   const isHomeToBuilder =
     displayLocation.pathname === '/' && location.pathname === '/builder';
   const isBuilderToHome =
@@ -42,6 +44,14 @@ export function PageTransition() {
     return () => cancelAnimationFrame(frame);
   }, [phase, displayLocation.pathname]);
 
+  if (isPrint) {
+    return (
+      <Routes location={displayLocation} key={displayLocation.pathname}>
+        <Route path="/print" element={<PrintPage />} />
+      </Routes>
+    );
+  }
+
   return (
     <div
       className={[
@@ -70,6 +80,7 @@ export function PageTransition() {
       <Routes location={displayLocation} key={displayLocation.pathname}>
         <Route path="/" element={<HomePage />} />
         <Route path="/builder" element={<BuilderPage />} />
+        <Route path="/print" element={<PrintPage />} />
       </Routes>
     </div>
   );

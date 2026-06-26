@@ -5,6 +5,11 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  server: {
+    proxy: {
+      '/api/export-pdf': 'http://127.0.0.1:8765',
+    },
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

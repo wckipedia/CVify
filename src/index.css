@@ -240,7 +240,8 @@
 }
 
 .alert-dialog-overlay[data-state='open'] {
-  animation: alert-dialog-overlay-in 280ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: alert-dialog-overlay-in 280ms cubic-bezier(0.22, 1, 0.36, 1)
+    forwards;
 }
 
 .alert-dialog-overlay[data-state='closed'] {
@@ -248,7 +249,8 @@
 }
 
 .alert-dialog-content[data-state='open'] {
-  animation: alert-dialog-content-in 340ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: alert-dialog-content-in 340ms cubic-bezier(0.22, 1, 0.36, 1)
+    forwards;
 }
 
 .alert-dialog-content[data-state='closed'] {
@@ -321,20 +323,95 @@
     margin: 0 !important;
     padding: 0 !important;
     background: white !important;
-    color: black !important;
     box-shadow: none !important;
     border: none !important;
     border-radius: 0 !important;
   }
 
   #resume-print-content * {
-    color: black !important;
-    background: transparent !important;
     box-shadow: none !important;
     text-shadow: none !important;
   }
 
   #resume-print-content a {
     text-decoration: underline;
+  }
+}
+
+.cvify-print-shell {
+  background: #ffffff;
+}
+
+.cvify-print-document {
+  width: 8.5in;
+}
+
+.cvify-print-document-pages {
+  gap: 0;
+}
+
+.cvify-print-document-page {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.cvify-print-flow {
+  box-sizing: border-box;
+  width: 8.5in;
+  min-height: 11in;
+  margin: 0 auto;
+  padding: 0.4in;
+  background: #ffffff;
+}
+
+@media print {
+  @page {
+    size: letter;
+    margin: 0.4in;
+  }
+
+  .cvify-print-shell {
+    display: block !important;
+    min-height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .cvify-print-document {
+    width: 8.5in !important;
+    margin: 0 !important;
+  }
+
+  #resume-print-content.cvify-print-flow {
+    width: auto !important;
+    min-height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  #resume-print-content.cvify-print-flow .resume-section {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  #resume-print-content.cvify-print-flow .resume-entry {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .cvify-print-page {
+    width: 8.5in !important;
+    height: 11in !important;
+    break-after: page;
+    page-break-after: always;
+    overflow: hidden !important;
+    padding: 0.4in !important;
+  }
+
+  .cvify-print-page:last-child {
+    break-after: auto;
+    page-break-after: auto;
   }
 }

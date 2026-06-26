@@ -1,20 +1,18 @@
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useResumeStore } from '../../store/resumeStore';
 import { ResumePreviewSkeleton } from '../ui/resume-preview-skeleton';
-import { getTemplateComponent, getTemplateName } from '../templates/registry';
+import { getTemplateName } from '../templates/registry';
 import { PreviewLayoutControls } from './PreviewLayoutControls';
+import { ResumePrintDocument } from './ResumePrintDocument';
 import { TemplateBrowser } from './TemplateBrowser';
 
 export function PreviewPanel() {
   const data = useResumeStore((s) => s.data);
   const isExportingPdf = useResumeStore((s) => s.isExportingPdf);
-  const Template = getTemplateComponent(data.layout.template);
   const [browserOpen, setBrowserOpen] = useState(false);
   const [previewRevealed, setPreviewRevealed] = useState(true);
-  const [pageBreakPx, setPageBreakPx] = useState(1056);
   const previewRef = useRef<HTMLDivElement>(null);
-  const firstPageRef = useRef<HTMLDivElement>(null);
 
   const handleOpenTemplates = useCallback(() => {
     setPreviewRevealed(false);
@@ -31,28 +29,6 @@ export function PreviewPanel() {
   }, []);
 
   const getPreviewElement = useCallback(() => previewRef.current, []);
-
-  useLayoutEffect(() => {
-    const page = firstPageRef.current;
-    const source = page?.querySelector<HTMLElement>('[data-resume-page-source]');
-    if (!page || !source) return;
-
-    const pageHeight = page.clientHeight;
-    const sourceTop = source.getBoundingClientRect().top;
-    const candidates = Array.from(
-      source.querySelectorAll<HTMLElement>('.resume-section, .resume-entry'),
-    )
-      .map((node) => Math.round(node.getBoundingClientRect().top - sourceTop))
-      .filter((top) => top > pageHeight * 0.62 && top < pageHeight - 16);
-
-    const nextBreak = candidates.length
-      ? Math.max(...candidates)
-      : pageHeight;
-
-    setPageBreakPx((current) =>
-      Math.abs(current - nextBreak) > 2 ? nextBreak : current,
-    );
-  }, [data]);
 
   return (
     <div className="flex h-full min-h-0 flex-col p-4 sm:p-6 print:block print:p-0">
@@ -71,38 +47,15 @@ export function PreviewPanel() {
               <ResumePreviewSkeleton />
             </div>
           )}
-          <div
+          <ResumePrintDocument
             ref={previewRef}
             id="resume-print-content"
-            className={cn(
-              'mx-auto flex w-[8.5in] max-w-none flex-col gap-6 text-left transition-opacity duration-[640ms] ease-[cubic-bezier(0.22,1,0.36,1)] print:gap-0',
-              isExportingPdf && 'invisible',
+            data={data}
+            hidden={isExportingPdf}
+            contentClassName={cn(
               browserOpen && !previewRevealed ? 'opacity-0' : 'opacity-100',
             )}
-          >
-            <div
-              ref={firstPageRef}
-              className="resume-print-page h-[11in] w-full overflow-hidden rounded-lg border border-neutral-300/70 bg-white p-6 shadow-inner sm:p-10 print:rounded-none print:border-0 print:p-0 print:shadow-none"
-            >
-              <div
-                data-resume-page-source
-                style={{ height: pageBreakPx, overflow: 'hidden' }}
-              >
-                <Template data={data} />
-              </div>
-            </div>
-            <div
-              className="resume-print-page h-[11in] w-full overflow-hidden rounded-lg border border-neutral-300/70 bg-white p-6 shadow-inner sm:p-10 print:rounded-none print:border-0 print:p-0 print:shadow-none"
-              aria-label="Resume page 2"
-            >
-              <div
-                data-resume-page-source
-                style={{ transform: `translateY(-${pageBreakPx}px)` }}
-              >
-                <Template data={data} />
-              </div>
-            </div>
-          </div>
+          />
         </div>
       </div>
 

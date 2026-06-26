@@ -28,7 +28,7 @@ export function Navbar() {
     setExportingPdf(true);
     try {
       const name = data.personalInfo.name.trim() || 'resume';
-      await exportPdf(name);
+      await exportPdf(name, data);
     } catch (error) {
       setImportError(
         error instanceof Error ? error.message : 'PDF export failed.',
